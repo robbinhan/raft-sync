@@ -9,11 +9,16 @@ import (
 
 	"paysync/api"
 	"paysync/connect"
+	"paysync/consensus/raft"
 	"paysync/internal/di"
 	"paysync/lib/configs"
 
 	"github.com/bilibili/kratos/pkg/conf/paladin"
 	"github.com/bilibili/kratos/pkg/log"
+)
+
+var (
+	join = flag.String("join", "", "join raft peer address")
 )
 
 func main() {
@@ -31,6 +36,8 @@ func main() {
 	appConfig := configs.Application()
 	api.SetClientTarget(appConfig)
 	connect.InitConnects(appConfig)
+
+	raft.StartRaft(appConfig.RaftOptions)
 
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, syscall.SIGHUP, syscall.SIGQUIT, syscall.SIGTERM, syscall.SIGINT)

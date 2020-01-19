@@ -8,6 +8,7 @@ require (
 	github.com/golang/protobuf v1.3.2
 	github.com/google/wire v0.4.0
 	github.com/gorilla/websocket v1.4.0
+	github.com/hashicorp/go-hclog v0.9.1
 	github.com/hashicorp/raft v1.1.1
 	github.com/hashicorp/raft-boltdb v0.0.0-20171010151810-6e5ba93211ea
 	github.com/pkg/errors v0.9.1 // indirect
@@ -15,4 +16,5 @@ require (
 	golang.org/x/net v0.0.0-20191011234655-491137f69257
 	google.golang.org/genproto v0.0.0-20200113173426-e1de0a7b01eb
 	google.golang.org/grpc v1.24.0
+	honnef.co/go/tools v0.0.0-20190523083050-ea95bdfd59fc
 )

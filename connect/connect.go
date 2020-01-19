@@ -12,7 +12,7 @@ import (
 )
 
 type rpcClient struct {
-	c       api.DemoClient
+	c       api.PaySyncClient
 	sendMsg chan string
 }
 

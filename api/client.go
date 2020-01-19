@@ -26,13 +26,13 @@ func SetClientTarget(appConfig configs.ApplicationConfig) {
 }
 
 // NewClient new grpc client
-func NewClient(cfg *warden.ClientConfig, opts ...grpc.DialOption) (DemoClient, error) {
+func NewClient(cfg *warden.ClientConfig, opts ...grpc.DialOption) (PaySyncClient, error) {
 	client := warden.NewClient(cfg, opts...)
 	cc, err := client.Dial(context.Background(), target)
 	if err != nil {
 		return nil, err
 	}
-	return NewDemoClient(cc), nil
+	return NewPaySyncClient(cc), nil
 }
 
 // 生成 gRPC 代码

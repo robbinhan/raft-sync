@@ -1,0 +1,12 @@
+
+peers = [
+   "0.0.0.0:9000", 
+]
+
+[raft]
+    NodeID = "N2"
+    Addr = "127.0.0.1:7002"
+    storeDir = "./node2/data"
+    bootstrap = true
+    HeartbeatTimeout = 30
+    ElectionTimeout = 30

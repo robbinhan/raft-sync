@@ -25,52 +25,67 @@ var _ *bm.Context
 var _ context.Context
 var _ binding.StructValidator
 
-var PathDemoPing = "/demo.service.v1.Demo/Ping"
-var PathDemoSayHello = "/demo.service.v1.Demo/SayHello"
-var PathDemoSayHelloURL = "/kratos-demo/say_hello"
+var PathPaySyncPing = "/paysync.service.v1.PaySync/Ping"
+var PathPaySyncSayHello = "/paysync.service.v1.PaySync/SayHello"
+var PathPaySyncAddVoter = "/paysync.service.v1.PaySync/AddVoter"
+var PathPaySyncAddData = "/paysync.service.v1.PaySync/AddData"
 
-// DemoBMServer is the server API for Demo service.
-type DemoBMServer interface {
+// PaySyncBMServer is the server API for PaySync service.
+type PaySyncBMServer interface {
 	Ping(ctx context.Context, req *google_protobuf1.Empty) (resp *google_protobuf1.Empty, err error)
 
 	SayHello(ctx context.Context, req *HelloReq) (resp *google_protobuf1.Empty, err error)
 
-	SayHelloURL(ctx context.Context, req *HelloReq) (resp *HelloResp, err error)
+	// Leader节点添加其它节点
+	AddVoter(ctx context.Context, req *VoterReq) (resp *CommonResp, err error)
+
+	// 增量添加数据
+	AddData(ctx context.Context, req *DataReq) (resp *CommonResp, err error)
 }
 
-var DemoSvc DemoBMServer
+var PaySyncSvc PaySyncBMServer
 
-func demoPing(c *bm.Context) {
+func paySyncPing(c *bm.Context) {
 	p := new(google_protobuf1.Empty)
 	if err := c.BindWith(p, binding.Default(c.Request.Method, c.Request.Header.Get("Content-Type"))); err != nil {
 		return
 	}
-	resp, err := DemoSvc.Ping(c, p)
+	resp, err := PaySyncSvc.Ping(c, p)
 	c.JSON(resp, err)
 }
 
-func demoSayHello(c *bm.Context) {
+func paySyncSayHello(c *bm.Context) {
 	p := new(HelloReq)
 	if err := c.BindWith(p, binding.Default(c.Request.Method, c.Request.Header.Get("Content-Type"))); err != nil {
 		return
 	}
-	resp, err := DemoSvc.SayHello(c, p)
+	resp, err := PaySyncSvc.SayHello(c, p)
 	c.JSON(resp, err)
 }
 
-func demoSayHelloURL(c *bm.Context) {
-	p := new(HelloReq)
+func paySyncAddVoter(c *bm.Context) {
+	p := new(VoterReq)
 	if err := c.BindWith(p, binding.Default(c.Request.Method, c.Request.Header.Get("Content-Type"))); err != nil {
 		return
 	}
-	resp, err := DemoSvc.SayHelloURL(c, p)
+	resp, err := PaySyncSvc.AddVoter(c, p)
 	c.JSON(resp, err)
 }
 
-// RegisterDemoBMServer Register the blademaster route
-func RegisterDemoBMServer(e *bm.Engine, server DemoBMServer) {
-	DemoSvc = server
-	e.GET("/demo.service.v1.Demo/Ping", demoPing)
-	e.GET("/demo.service.v1.Demo/SayHello", demoSayHello)
-	e.GET("/kratos-demo/say_hello", demoSayHelloURL)
+func paySyncAddData(c *bm.Context) {
+	p := new(DataReq)
+	if err := c.BindWith(p, binding.Default(c.Request.Method, c.Request.Header.Get("Content-Type"))); err != nil {
+		return
+	}
+	resp, err := PaySyncSvc.AddData(c, p)
+	c.JSON(resp, err)
+}
+
+// RegisterPaySyncBMServer Register the blademaster route
+func RegisterPaySyncBMServer(e *bm.Engine, server PaySyncBMServer) {
+	PaySyncSvc = server
+	e.GET("/paysync.service.v1.PaySync/Ping", paySyncPing)
+	e.GET("/paysync.service.v1.PaySync/SayHello", paySyncSayHello)
+	e.GET("/paysync.service.v1.PaySync/AddVoter", paySyncAddVoter)
+	e.GET("/paysync.service.v1.PaySync/AddData", paySyncAddData)
 }
