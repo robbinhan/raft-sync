@@ -8,7 +8,6 @@ import (
 
 	"github.com/bilibili/kratos/pkg/log"
 	"github.com/bilibili/kratos/pkg/net/rpc/warden"
-	"github.com/golang/protobuf/ptypes/empty"
 )
 
 type rpcClient struct {
@@ -64,13 +63,13 @@ func manage(wrapRPCClient *rpcClient) {
 		case <-done:
 			return
 		case <-ticker.C:
-			log.Info("call ping\n")
-			ctx := context.Background()
-			_, err := c.Ping(ctx, &empty.Empty{})
-			if err != nil {
-				log.Info("write:%v", err)
-				return
-			}
+			// log.Info("call ping\n")
+			// ctx := context.Background()
+			// _, err := c.Ping(ctx, &empty.Empty{})
+			// if err != nil {
+			// 	log.Info("write:%v", err)
+			// 	return
+			// }
 		case name := <-wrapRPCClient.sendMsg:
 			log.Info("call SayHello\n")
 			ctx := context.Background()

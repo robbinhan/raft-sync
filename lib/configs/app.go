@@ -13,13 +13,15 @@ type RaftPeer struct {
 
 // RaftOptions ...
 type RaftOptions struct {
-	NodeID           string
-	Addr             string
-	StoreDir         string
-	Bootstrap        bool
-	HeartbeatTimeout int64
-	ElectionTimeout  int64
-	Peers            []RaftPeer
+	NodeID            string
+	Addr              string
+	StoreDir          string
+	Bootstrap         bool
+	HeartbeatTimeout  int64
+	ElectionTimeout   int64
+	SnapshotInterval  int64
+	SnapshotThreshold uint64
+	Peers             []RaftPeer
 }
 
 // ApplicationConfig ...

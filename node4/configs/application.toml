@@ -1,0 +1,14 @@
+
+peers = [
+   "0.0.0.0:9000", 
+]
+
+[raft]
+   NodeID = "N4"
+   Addr = "127.0.0.1:7004"
+   storeDir = "./node4/data"
+   bootstrap = true
+   HeartbeatTimeout = 30
+   ElectionTimeout = 30
+   SnapshotInterval = 1
+   SnapshotThreshold = 1

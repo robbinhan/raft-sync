@@ -4,26 +4,31 @@
 利用rpc协议跨机房同步数据，从一台向多台同步数据(相当于1主多从)
 
 ## 使用Demo
-1. 启动server1
+1. 启动node1(leader节点)
 ```
-cd cmd
-go build
-./cmd -conf ../configs
+./cmd/cmd -conf ./node1/configs
 ```
-2. 启动server2
+2. 启动node2
 ```
-cd cmd
-go build
-./cmd -conf ../configs2
+./cmd/cmd -conf ./node2/configs -join=1
 ```
-3. 发送请求数据给server2，同时server2向server1同步数据
+3. 启动node3
 ```
-go test -v test/sync_test.go
+./cmd/cmd -conf ./node3/configs -join=1
+```
+4. 启动node4
+```
+./cmd/cmd -conf ./node4/configs -join=1
+```
+
+5. 发送请求数据给leader，其它节点会同步到数据
+```
+go test -v test/adddata_test.go
 ```
 
 
 ## TODO
-- [ ] 实现raft协议，多台之间数据一致
+- [x] 实现raft协议，多台之间数据一致
 - [ ] 跨机房的安全性问题
 
 

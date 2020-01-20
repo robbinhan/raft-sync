@@ -13,7 +13,7 @@ func TestAddData(t *testing.T) {
 	cfg := &warden.ClientConfig{}
 
 	appConf := configs.ApplicationConfig{
-		Peers: []string{"0.0.0.0:9000"},
+		Peers: []string{"0.0.0.0:9001"},
 	}
 	api.SetClientTarget(appConf)
 	c, err := api.NewClient(cfg)

@@ -1,0 +1,14 @@
+
+peers = [
+   "0.0.0.0:9000", 
+]
+
+[raft]
+   NodeID = "N3"
+   Addr = "127.0.0.1:7003"
+   storeDir = "./node3/data"
+   bootstrap = true
+   HeartbeatTimeout = 30
+   ElectionTimeout = 30
+   SnapshotInterval = 1
+   SnapshotThreshold = 1

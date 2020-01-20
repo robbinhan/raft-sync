@@ -23,4 +23,5 @@ func TestAddVoter(t *testing.T) {
 	}
 	ctx := context.Background()
 	c.AddVoter(ctx, &api.VoterReq{Id: "N2", Addr: "127.0.0.1:7002"})
+	c.AddVoter(ctx, &api.VoterReq{Id: "N3", Addr: "127.0.0.1:7003"})
 }

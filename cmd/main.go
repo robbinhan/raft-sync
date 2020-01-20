@@ -8,7 +8,6 @@ import (
 	"time"
 
 	"paysync/api"
-	"paysync/connect"
 	"paysync/consensus/raft"
 	"paysync/internal/di"
 	"paysync/lib/configs"
@@ -35,9 +34,13 @@ func main() {
 
 	appConfig := configs.Application()
 	api.SetClientTarget(appConfig)
-	connect.InitConnects(appConfig)
+	// connect.InitConnects(appConfig)
 
 	raft.StartRaft(appConfig.RaftOptions)
+
+	if len(*join) > 0 {
+		raft.JoinRaft(appConfig.RaftOptions)
+	}
 
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, syscall.SIGHUP, syscall.SIGQUIT, syscall.SIGTERM, syscall.SIGINT)

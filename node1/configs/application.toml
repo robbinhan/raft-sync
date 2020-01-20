@@ -3,10 +3,12 @@ peers = [
 ]
 
 [raft]
-    NodeID = "N1"
-    Addr = "127.0.0.1:7001"
-    storeDir = "./node1/data"
-    bootstrap = true
-    peers = [
-         {NodeID = "N2", Addr = "127.0.0.1:7002"}
-    ]
+     NodeID = "N1"
+     Addr = "127.0.0.1:7001"
+     storeDir = "./node1/data"
+     bootstrap = true
+     SnapshotInterval = 1
+     SnapshotThreshold = 1
+     peers = [
+          {NodeID = "N2", Addr = "127.0.0.1:7002"}
+     ]
